@@ -1,0 +1,132 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/ui/main_menu/main_menu.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui/heading_size.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scenes/ui/button_size.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scenes/ui/fade/fade.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fonts/Open_Sans/OpenSans-SemiBold.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://scenes/ui/introduction/introduction.tscn" type="PackedScene" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+use_filter = true
+font_data = ExtResource( 5 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0980392, 0.0980392, 0.0980392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heading" type="Label" parent="Main"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -434.095
+margin_bottom = -331.095
+custom_fonts/font = ExtResource( 2 )
+text = "Hall of Infinity"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LudumDare47" type="Label" parent="Main"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 364.0
+margin_top = -331.0
+margin_bottom = -254.0
+custom_fonts/font = SubResource( 1 )
+text = "Ludum Dare 47"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Watermark" type="Label" parent="Main"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -163.0
+margin_top = -53.0
+custom_fonts/font = SubResource( 2 )
+text = "Skyvastern"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="Control" parent="Main"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -238.0
+margin_bottom = -104.0
+
+[node name="Start" type="Button" parent="Main/Buttons"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -97.5
+margin_right = 97.5
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 3 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Button" parent="Main/Buttons"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -97.5
+margin_top = 69.9246
+margin_right = 97.5
+margin_bottom = 121.925
+custom_fonts/font = ExtResource( 3 )
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Introduction" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Introduction" parent="Introduction" instance=ExtResource( 6 )]
+
+[node name="Fade" parent="." instance=ExtResource( 4 )]
+visible = false
+[connection signal="pressed" from="Main/Buttons/Start" to="." method="start_press"]
+[connection signal="pressed" from="Main/Buttons/Exit" to="." method="exit_press"]

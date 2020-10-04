@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scenes/level/game_states/game_states.gd" type="Script" id=1]
+[ext_resource path="res://scenes/level/game_states/preplaying_state.gd" type="Script" id=2]
+[ext_resource path="res://scenes/level/game_states/controls_off_state.gd" type="Script" id=3]
+[ext_resource path="res://scenes/level/game_states/playing_state.gd" type="Script" id=4]
+[ext_resource path="res://scenes/level/game_states/gameover_state.gd" type="Script" id=5]
+[ext_resource path="res://scenes/level/game_states/paused_state.gd" type="Script" id=6]
+[ext_resource path="res://scenes/ui/fade/fade.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/ui/game_over/game_over_ui.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/ui/pause_menu/pause_menu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/ui/game_won/game_won.tscn" type="PackedScene" id=10]
+
+[node name="GameStates" type="Spatial"]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="Preplaying" type="Spatial" parent="."]
+script = ExtResource( 2 )
+
+[node name="Playing" type="Spatial" parent="."]
+script = ExtResource( 4 )
+
+[node name="Paused" type="Spatial" parent="."]
+script = ExtResource( 6 )
+
+[node name="GameOver" type="Spatial" parent="."]
+script = ExtResource( 5 )
+
+[node name="TransitonTimer" type="Timer" parent="GameOver"]
+one_shot = true
+
+[node name="ControlsOFF" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOverUI" parent="UI" instance=ExtResource( 8 )]
+
+[node name="GameWon" parent="UI" instance=ExtResource( 10 )]
+
+[node name="PauseMenu" parent="UI" instance=ExtResource( 9 )]
+
+[node name="Fade" parent="UI" instance=ExtResource( 7 )]
+[connection signal="timeout" from="GameOver/TransitonTimer" to="GameOver" method="_on_TransitonTimer_timeout"]
+[connection signal="pressed" from="UI/PauseMenu/Buttons/ResumeBTN" to="Paused" method="resume_press"]
+[connection signal="pressed" from="UI/PauseMenu/Buttons/ExitBTN" to="Paused" method="exit_press"]
+
+[editable path="UI/PauseMenu"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/EnemyVoice02.wav-5459a89c7fbfc73341420272d21bbe07.sample"
+
+[deps]
+
+source_file="res://assets/audio/EnemyVoice02.wav"
+dest_files=[ "res://.import/EnemyVoice02.wav-5459a89c7fbfc73341420272d21bbe07.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

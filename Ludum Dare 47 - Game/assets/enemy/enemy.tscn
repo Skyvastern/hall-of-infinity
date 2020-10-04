@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/enemy/Enemy.glb" type="PackedScene" id=1]
+[ext_resource path="res://scenes/player/weapons/muzzle_flash.tscn" type="PackedScene" id=2]
+
+[node name="Enemy" instance=ExtResource( 1 )]
+
+[node name="BoneAttachment" parent="Enemy/Skeleton 2" index="0"]
+transform = Transform( -2.23052e-07, -0.999415, 0.0341837, -0.179502, 0.0336284, 0.983182, -0.983758, -0.00613592, -0.179397, -0.329512, 0.890672, 0.0175489 )
+
+[node name="FireAttachment" type="BoneAttachment" parent="Enemy/Skeleton 2/BoneAttachment/Pistol/Skeleton" index="1"]
+transform = Transform( 0.0554966, -0.998459, -3.81346e-08, 0.998459, 0.0554967, 2.27958e-07, -2.2549e-07, -5.07267e-08, 1, 0.259441, 0.713462, 1.51634e-07 )
+bone_name = "upper"
+
+[node name="MuzzleFlash" parent="Enemy/Skeleton 2/BoneAttachment/Pistol/Skeleton/FireAttachment" index="0" instance=ExtResource( 2 )]
+transform = Transform( 1, 5.96046e-08, 0, 7.45058e-08, 1, 1.86265e-09, 0, 1.30385e-08, 1, 0, 3.59948, -4.76837e-07 )
+
+[node name="ChestAttachment" type="BoneAttachment" parent="Enemy/Skeleton 2" index="2"]
+transform = Transform( 1, 9.56428e-25, -1.55096e-25, -2.35876e-24, 1, -7.45058e-09, -5.16988e-26, 7.45058e-09, 1, 0, 1.21427, -0.011876 )
+bone_name = "chest"
+
+[node name="CenterRaycast" type="BoneAttachment" parent="Enemy/Skeleton 2" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.996077, -0.011876 )
+bone_name = "spine"
+
+[node name="RayCast" type="RayCast" parent="Enemy/Skeleton 2/CenterRaycast" index="0"]
+cast_to = Vector3( 0, 0, 100 )

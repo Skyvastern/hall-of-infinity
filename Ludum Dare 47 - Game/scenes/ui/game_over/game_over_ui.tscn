@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/ui/game_over/game_over_ui.gd" type="Script" id=1]
+[ext_resource path="res://fonts/Open_Sans/OpenSans-SemiBold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/ui/heading_size.tres" type="DynamicFont" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+font_data = ExtResource( 2 )
+
+[node name="GameOverUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.588235 )
+
+[node name="Heading" type="Label" parent="."]
+anchor_right = 1.0
+margin_bottom = 169.0
+custom_fonts/font = ExtResource( 3 )
+text = "Game Over"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeBackground" type="ColorRect" parent="."]
+anchor_right = 1.0
+margin_top = 168.829
+margin_bottom = 294.829
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.588235 )
+
+[node name="TimeLabel" type="Label" parent="TimeBackground"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 1 )
+text = "Reloading in -
+3.00"
+align = 1
+valign = 1

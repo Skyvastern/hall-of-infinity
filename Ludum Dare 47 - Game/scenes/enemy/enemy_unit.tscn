@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/enemy/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemy/enemy_unit.gd" type="Script" id=2]
+[ext_resource path="res://scenes/enemy/states/idle_state.gd" type="Script" id=3]
+[ext_resource path="res://scenes/enemy/states/patrol_state.gd" type="Script" id=4]
+[ext_resource path="res://scenes/enemy/states/chase_state.gd" type="Script" id=5]
+[ext_resource path="res://scenes/enemy/states/attack_state.gd" type="Script" id=6]
+[ext_resource path="res://scenes/ui/hit_arc/hit_arc.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/enemy/enemy_voice.tscn" type="PackedScene" id=8]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.5
+height = 0.75
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 3, 1, 4 )
+
+[node name="EnemyUnit" type="KinematicBody"]
+script = ExtResource( 2 )
+
+[node name="Enemy" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
+
+[node name="BoneAttachment" parent="Enemy/Enemy/Skeleton 2" index="0"]
+transform = Transform( -0.0476137, -0.988059, 0.146536, 0.28435, 0.127225, 0.950242, -0.957538, 0.0869119, 0.274897, -0.362383, 0.89888, -0.213668 )
+
+[node name="FireAttachment" parent="Enemy/Enemy/Skeleton 2/BoneAttachment/Pistol/Skeleton" index="1"]
+transform = Transform( 0.0554966, -0.998459, -3.81346e-08, 0.998459, 0.0554967, 2.27958e-07, -2.2549e-07, -5.07267e-08, 1, 0.259441, 0.713462, 1.51634e-07 )
+
+[node name="ChestAttachment" parent="Enemy/Enemy/Skeleton 2" index="2"]
+transform = Transform( 1, 1.74052e-17, -6.83212e-19, -1.74052e-17, 0.996923, -0.078386, -6.83213e-19, 0.078386, 0.996923, 1.37093e-33, 1.17565, -0.0396818 )
+
+[node name="CenterRaycast" parent="Enemy/Enemy/Skeleton 2" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.37093e-33, 0.957458, -0.0396818 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.875, 0 )
+shape = SubResource( 1 )
+
+[node name="States" type="Spatial" parent="."]
+
+[node name="Patrol" type="Spatial" parent="States"]
+script = ExtResource( 4 )
+
+[node name="Idle" type="Spatial" parent="States"]
+script = ExtResource( 3 )
+
+[node name="Chase" type="Spatial" parent="States"]
+script = ExtResource( 5 )
+
+[node name="Attack" type="Spatial" parent="States"]
+script = ExtResource( 6 )
+
+[node name="DetectionArea" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="DetectionArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 2 )
+
+[node name="Waypoints" type="Spatial" parent="."]
+
+[node name="A" type="Position3D" parent="Waypoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3 )
+
+[node name="B" type="Position3D" parent="Waypoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3 )
+
+[node name="C" type="Position3D" parent="Waypoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3 )
+
+[node name="D" type="Position3D" parent="Waypoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -3 )
+
+[node name="IdleTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 2.5
+one_shot = true
+
+[node name="HitArc" parent="." instance=ExtResource( 7 )]
+
+[node name="EnemyVoice" parent="." instance=ExtResource( 8 )]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_DetectionArea_body_exited"]
+[connection signal="timeout" from="IdleTimer" to="States/Idle" method="_on_IdleTimer_timeout"]
+
+[editable path="Enemy"]
