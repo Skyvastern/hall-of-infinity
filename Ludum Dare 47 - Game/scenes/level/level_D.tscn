@@ -1,17 +1,19 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://level_01_env.tres" type="Environment" id=1]
-[ext_resource path="res://scenes/enemy/enemy_unit.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/level/checkpoint_manager/checkpoint_manager.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/level/game_states/game_states.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/level/darkness/darkness.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/levels/level_04/level_04.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/level/misc/background_ambient/background_ambient.tscn" type="PackedScene" id=8]
 
 [node name="World" type="Spatial"]
 
 [node name="Darkness" parent="." instance=ExtResource( 6 )]
 speed = 0.1
+
+[node name="BackgroundAmbient" parent="." instance=ExtResource( 8 )]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 1 )
@@ -22,8 +24,5 @@ environment = ExtResource( 1 )
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -6.51682e-07, 0.295399, -1 )
 
 [node name="CheckpointManager" parent="." instance=ExtResource( 4 )]
-
-[node name="EnemyUnit" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0.0368792, -33 )
 
 [node name="GameStates" parent="." instance=ExtResource( 5 )]

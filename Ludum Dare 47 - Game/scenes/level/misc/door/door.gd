@@ -56,7 +56,6 @@ func switch_to_next_room():
 	
 	if finale:
 		Global.ludum_dare += 1
-		print(Global.ludum_dare)
 		if Global.ludum_dare == 47:
 			change_next_room_value("res://scenes/level/level_E.tscn")
 	

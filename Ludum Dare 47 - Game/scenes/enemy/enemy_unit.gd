@@ -165,6 +165,7 @@ func shoot():
 	muzzle_flash.emitting = true
 	
 	ray.force_raycast_update()
+	AudioManager.play_sound("Shoot")
 	
 	if ray.is_colliding():
 		var body = ray.get_collider()

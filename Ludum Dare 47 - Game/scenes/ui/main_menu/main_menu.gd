@@ -10,6 +10,8 @@ func _ready():
 func start_press():
 	if only_once == false:
 		only_once = true
+		Global.darkness = 0.0
+		
 		$Introduction.visible = true
 		$Introduction/Introduction/AnimationPlayer.play("Fade_In")
 		
@@ -17,7 +19,7 @@ func start_press():
 		
 		$Introduction/Introduction/AnimationPlayer.play("Type")
 		
-		yield(get_tree().create_timer(4.0), "timeout")
+		yield(get_tree().create_timer(7.0), "timeout")
 		
 		$Fade/AnimationPlayer.play("Fade_In", -1.0, 2.0)
 		get_tree().change_scene("res://scenes/level/level_A.tscn")
